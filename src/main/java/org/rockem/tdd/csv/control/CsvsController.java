@@ -1,5 +1,7 @@
 package org.rockem.tdd.csv.control;
 
+import org.rockem.tdd.csv.CsvFind;
+import org.rockem.tdd.csv.common.FindResult;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -33,6 +35,11 @@ public class CsvsController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getCSV(@PathVariable String id) {
         return csvs.get(id);
+    }
+
+    @RequestMapping(value = "/{id}/find", method = RequestMethod.GET)
+    public FindResult findInCSV(@PathVariable String id, @RequestParam String text) {
+        return new CsvFind(csvs.get(id)).find(text);
     }
 
 }

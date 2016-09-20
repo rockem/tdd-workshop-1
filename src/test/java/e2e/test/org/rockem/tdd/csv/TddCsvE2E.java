@@ -1,6 +1,6 @@
 package e2e.test.org.rockem.tdd.csv;
 
-import e2e.test.org.rockem.tdd.csv.support.CSVBuilder;
+import test.org.rockem.tdd.csv.support.CSVBuilder;
 import e2e.test.org.rockem.tdd.csv.support.CSVClient;
 import org.junit.BeforeClass;
 import org.junit.Test;

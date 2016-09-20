@@ -1,4 +1,4 @@
-package e2e.test.org.rockem.tdd.csv.support;
+package test.org.rockem.tdd.csv.support;
 
 import java.util.ArrayList;
 import java.util.Arrays;
