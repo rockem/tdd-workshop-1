@@ -1,10 +1,12 @@
 package e2e.test.org.rockem.tdd.csv.support;
 
+import com.google.gson.Gson;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.rockem.tdd.csv.common.FindResult;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -43,5 +45,9 @@ public class CSVClient {
         } catch (IOException e) {
             throw new AssertionError("Failed to fetch CSV from [" + url + "]");
         }
+    }
+
+    public FindResult find(String text) throws IOException {
+        return new Gson().fromJson(HTTP.get(url + "/find?text=" + text), FindResult.class);
     }
 }
