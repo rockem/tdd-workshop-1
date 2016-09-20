@@ -32,12 +32,16 @@ public class CSVClient {
     }
 
     private static HttpPost createUploadPost(String csv) throws UnsupportedEncodingException {
-        HttpPost post = new HttpPost("http://localhost:8080/csvc");
+        HttpPost post = new HttpPost("http://localhost:8080/csvs");
         post.setEntity(new StringEntity(csv));
         return post;
     }
 
-    public String get() throws IOException {
-        return HTTP.get(url);
+    public String get() {
+        try {
+            return HTTP.get(url);
+        } catch (IOException e) {
+            throw new AssertionError("Failed to fetch CSV from [" + url + "]");
+        }
     }
 }
