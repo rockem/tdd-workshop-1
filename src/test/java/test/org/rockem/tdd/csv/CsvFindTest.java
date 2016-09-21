@@ -26,6 +26,18 @@ public class CsvFindTest {
                         new FindResult(3, 1, "pocula"))));
     }
 
+    @Test
+    public void findByCaseInsensitive() throws Exception {
+        String simpleCSV = new CSVBuilder()
+                .row("KuKu", "28")
+                .row("kulula", "22").toCSV();
+
+        assertThat(new CsvFind(simpleCSV).find("ku"),
+                is(asList(
+                        new FindResult(1, 1, "KuKu"),
+                        new FindResult(2, 1, "kulula"))));
+    }
+
 
 
 }
