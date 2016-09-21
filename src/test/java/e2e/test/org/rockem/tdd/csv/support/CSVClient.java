@@ -1,6 +1,7 @@
 package e2e.test.org.rockem.tdd.csv.support;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -10,6 +11,8 @@ import org.rockem.tdd.csv.common.FindResult;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -47,7 +50,8 @@ public class CSVClient {
         }
     }
 
-    public FindResult find(String text) throws IOException {
-        return new Gson().fromJson(HTTP.get(url + "/find?text=" + text), FindResult.class);
+    public List<FindResult> find(String text) throws IOException {
+        Type listType = new TypeToken<List<FindResult>>() {}.getType();
+        return new Gson().fromJson(HTTP.get(url + "/find?text=" + text), listType);
     }
 }

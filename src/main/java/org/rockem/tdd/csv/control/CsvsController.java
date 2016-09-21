@@ -8,6 +8,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -38,7 +39,7 @@ public class CsvsController {
     }
 
     @RequestMapping(value = "/{id}/find", method = RequestMethod.GET)
-    public FindResult findInCSV(@PathVariable String id, @RequestParam String text) {
+    public List<FindResult> findInCSV(@PathVariable String id, @RequestParam String text) {
         return new CsvFind(csvs.get(id)).find(text);
     }
 
