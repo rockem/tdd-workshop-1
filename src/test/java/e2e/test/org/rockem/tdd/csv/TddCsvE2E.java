@@ -19,7 +19,7 @@ public class TddCsvE2E {
             .row("3", "milk")
             .row("5", "bread")
             .row("1", "Cheese")
-            .row("6", "broccoli").toCSV();
+            .row("6", "Broccoli").toCSV();
 
     private static final String CSV_2 = new CSVBuilder()
             .row("1", "lock").toCSV();
@@ -47,7 +47,7 @@ public class TddCsvE2E {
         assertThat(uploadedCSV(CSV_1).find("br"), is(
                 Arrays.asList(
                         new FindResult(2, 2, "bread"),
-                        new FindResult(4, 2, "broccoli")
+                        new FindResult(4, 2, "Broccoli")
                 )
         ));
     }
