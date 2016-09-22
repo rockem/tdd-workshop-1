@@ -2,31 +2,30 @@ package org.rockem.tdd.csv.control;
 
 import org.rockem.tdd.csv.CsvFind;
 import org.rockem.tdd.csv.common.FindResult;
+import org.rockem.tdd.csv.repository.CsvsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/csvs")
 public class CsvsController {
 
-    private Map<String, String> csvs = new HashMap<>();
+    private final CsvsRepository csvsRepository;
+
+    @Autowired
+    public CsvsController(CsvsRepository csvsRepository) {
+        this.csvsRepository = csvsRepository;
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> newCSV(@RequestBody String csv) {
-        String csvId = generateRandomHash();
-        csvs.put(csvId, csv);
+        String csvId = csvsRepository.save(csv);
         return ResponseEntity.created(csvURIFor(csvId)).build();
-    }
-
-    private String generateRandomHash() {
-        return UUID.randomUUID().toString();
     }
 
     private URI csvURIFor(String csvId) {
@@ -35,12 +34,12 @@ public class CsvsController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getCSV(@PathVariable String id) {
-        return csvs.get(id);
+        return csvsRepository.find(id);
     }
 
     @RequestMapping(value = "/{id}/find", method = RequestMethod.GET)
     public List<FindResult> findInCSV(@PathVariable String id, @RequestParam String text) {
-        return new CsvFind(csvs.get(id)).find(text);
+        return new CsvFind(csvsRepository.find(id)).find(text);
     }
 
 }
