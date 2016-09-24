@@ -2,14 +2,14 @@ package org.rockem.tdd.csv.repository;
 
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class InMemCsvsRepository implements CsvsRepository {
 
-    private Map<String, String> csvs = new HashMap<>();
+    private Map<String, String> csvs = new ConcurrentHashMap<>();
 
     @Override
     public String save(String csv) {
